@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, StyleSheet, View, Button, Image, TouchableOpacity } from 'react-native';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import SocialButton from '../components/SocialButton';
 import { windowWidth, windowHeight } from '../utils/Dimentions';
+import { AuthContext } from '../navigation/AuthProvider';
+
+// user async register from AuthProvider
 
 const SignupScreen = ({ navigation }) => {
+    const { register } = useContext(AuthContext);
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -32,7 +36,7 @@ const SignupScreen = ({ navigation }) => {
                 onChangeText={(userPassword) => setPassword(userPassword)}
                 placeholderText='Password'
                 iconType="lock"
-                securetextentry={true}
+                secureTextEntry={true}
             />
             {/* confirm Password */}
             <FormInput
@@ -40,12 +44,12 @@ const SignupScreen = ({ navigation }) => {
                 onChangeText={(userConfirmPassword) => setConfirmPassword(userConfirmPassword)}
                 placeholderText='Password'
                 iconType="lock"
-                securetextentry={true}
+                secureTextEntry={true}
             />
             {/* button Sign Up */}
             <FormButton
                 buttonTitle="Sign Up"
-                onPress={() => alert('Sign Up Clicked! ')}
+                onPress={() => register(email, password)}
             />
 
             {/* text title */}

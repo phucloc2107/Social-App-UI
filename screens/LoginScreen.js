@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, StyleSheet, View, Button, Image, TouchableOpacity } from 'react-native';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import SocialButton from '../components/SocialButton';
 import { windowWidth, windowHeight } from '../utils/Dimentions';
+import { AuthContext } from '../navigation/AuthProvider';
 
 const LoginScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    const { login } = useContext(AuthContext)
 
     return (
         <View style={styles.container}>
@@ -36,12 +39,12 @@ const LoginScreen = ({ navigation }) => {
                 onChangeText={(userPassword) => setPassword(userPassword)}
                 placeholderText='Password'
                 iconType="lock"
-                securetextentry={true}
+                secureTextEntry={true}
             />
             {/* button Sign In */}
             <FormButton
                 buttonTitle="Sign In"
-                onPress={() => alert('Sign In Clicked! ')}
+                onPress={() => login(email, password)}
             />
 
             <TouchableOpacity style={styles.forgotButton} onPress={() => { }}>
